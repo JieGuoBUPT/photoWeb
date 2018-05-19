@@ -1,0 +1,32 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!doctype html>
+
+<title>Function on friendship</title>
+{% if name %}
+    <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+{% if message %}
+    <h4>{{ message }}!</h4>
+{% endif %}
+
+{% if supress == 'False' %}
+    <h1> Fail</h1>
+{% endif %}
+
+<h2>Here's your friends</h2>
+{% if friends %}
+    <ul>
+        {% for users in friends %}
+            <li>{{ users[1] }}<br></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<ul>
+    <li><a href='/logout'>Logout</a></li>
+    <li><a href='/'>Home</a></li>
+    <li><a href='/addfriend'>Add a new friend</a></li>
+    <li><a href='/deletefriend'>Delete a new friend</a></li>
+    <li><a href='/recommendation'>Friend recommendation</a></li>
+</ul>

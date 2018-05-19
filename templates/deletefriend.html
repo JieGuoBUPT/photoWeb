@@ -1,0 +1,23 @@
+<!-- author ben lawson balawson@bu.edu -->
+<head>
+    <title>Delete friend</title>
+</head>
+{%if supress == 'False'%}
+<h1> The user is not your friend.</h1>
+{% endif %}
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+    <body>
+        <div class="title">
+            <h1>Enter the information below</h1>
+        </div>
+        <div id="content">
+            <form method="post" action="{{ url_for('deletefriend') }}">
+                <label for="email">Enter friend's email address:</label>
+                <input type="email" name="email" /><br />
+                <input type="submit" />
+            </form>
+         </div>
+    </body>
+<a href='/'>Home</a>

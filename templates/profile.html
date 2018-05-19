@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+{% if name %}
+    <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+{% if message %}
+    <h1> {{ message }}!</h1>
+{% endif %}
+
+<ul>
+    <li><a href='/friend'>Friends</a></li>
+    <li><a href='/logout'>Logout</a></li>
+    <li><a href='/'>Home</a></li>
+</ul>
+
+
+{% if albums %}
+    <h3>Your album</h3>
+    <ul>
+        {% for album in albums %}
+            <a href="photos/{{ album }}">{{ album }}</a>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="col-md-6">
+    <div id="logbox">
+        <form action="album_creation" method='POST'>
+            <h3>Create a new album</h3>
+            <input name="albumName" type="text" placeholder="enter the name of your album" class="input pass"/>
+            <input name="submit" type="submit" value="Create Album" class="inputButton"/>
+        </form>
+    </div>
+</div>
+
+
+{% if recommendedPhotos %}
+    <h3>Recommend photo</h3>
+    <ul>
+        {% for photo in recommendedPhotos %}
+            <li><img width="200px" height="150px" src='data:image/png;base64, {{ photo[0] }}'/></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+</body>
+</html>

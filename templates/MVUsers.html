@@ -1,0 +1,21 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!doctype html>
+
+<title>Top10User</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+<h2>Here's the top 10 most valuable users</h2>
+{% if user %}
+    <ul>
+    {% for users in user %}
+        <li>{{users[0]}}<br>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<ul>
+<li><a href='/'>Home</a></li>
+</ul>
+

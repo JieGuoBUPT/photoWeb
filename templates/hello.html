@@ -1,0 +1,137 @@
+<!doctype html>
+{#<link rel="stylesheet" type="text/css" href="static/style.css"></link>#}
+<title>Photoshare</title>
+
+<div class="col-md-6">
+    <h1>Photoshare</h1>
+
+	{% if name %}s
+	  <h1>Hello {{ name }}!</h1>
+	{% endif %}
+
+	{% if message %}
+	  <h1> {{ message }}!</h1>
+	{% endif %}
+
+    {% if not current_user.is_authenticated %}
+        <div class="col-md-6">
+            <div id="logbox">
+                <form action='login' method='POST'>
+                    <h2>Account Login</h2>
+                    <ul>
+                        <li><input name="email" type="text" id='email' placeholder="enter your email"
+                                   class="input pass"/></li>
+                        <li><input name="password" type="password" id='password' placeholder="enter your password"
+                                   required="required" class="input pass"/></li>
+                        <li><input type='submit' name='submit' class="inputButton"/></li>
+                        {#                    <a href='/'>Home</a>#}
+                        <li>
+                            <div class="text-center">
+                                <a href="register" id="">IF YOU DON'T HAVE THE ACCOUNT, PLEASE REGISTER!</a>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+        <ul>
+            <li><a href='/MVUsers'>Most Active Users!</a></li>
+            <li><a href='/profile'>Profile</a></li>
+            <li><a href='/logout'>Logout</a></li>
+            <li><a href='/'>Home</a></li>
+        </ul>
+    {% endif %}
+
+
+    <h3>Here's all the pictures!</h3>
+    <ul>
+        {% for i in range(photos|length) %}
+            <li>
+                </br>
+                <img width="200px" height="150px" src='data:image/png;base64, {{ photos[i][0] }}'/>
+                {#                <p>Added by {{ userNames[i] }}</p>#}
+                {% if comments %}
+                    <h4>Comments</h4>
+                    {% for comment in comments[i] %}
+                        <ul>
+                            <li>{{ comment }}</li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+
+
+                {% if likes %}
+                    <h4>Likes: </h4>
+                    <p>{{ likes[i] }}</p>
+
+                    <h4>Users who Liked the picture:</h4>
+                    {% for user in usersLiked[i] %}
+                         <ul>
+                            <li>{{ user }}</li>
+                        </ul>
+                    {% endfor %}
+
+                {% endif %}
+
+                <form action="add_comment" method="POST">
+                    <input type="text" name="comment"/>
+                    <input type="hidden" value={{ i+1}} name="picture_id" required='true'/>
+                    <input type="submit" name="add_comment" value="add comment"/>
+                </form>
+
+                <form action="add_like" method="POST">
+                    <input type="hidden" value={{ i+1}} name="picture_id" required='true'/>
+                    <input type="submit" name="add_like" value="like"/>
+                </form>
+
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    {% if mostPopularTags %}
+        <h3>Most Popular Tags </h3>
+        {% for tag in mostPopularTags %}
+            <ul>
+                <a href="public_tags/{{ tag }}">{{ tag }}</a>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    <h3>Search Photos by Tags</h3>
+    <form action="search_by_tag" method="POST">
+        <input type="text" placeholder="tag" name="tag_name" required='true'/>
+        <input type="submit" name="searchByTag" value="search"/>
+    </form>
+
+    {% if search_tags %}
+        {% for tag in search_tags %}
+            <ul>
+                <li>
+                    <img width="200px" height="150px" src='data:image/png;base64, {{ tag[0] }}'/>
+                </li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+ <h3>Search Comments</h3>
+    <form action="search_by_comment" method="POST">
+        <input type="text" placeholder="comment" name="comment_name" required='true'/>
+        <input type="submit" name="searchByComment" value="search"/>
+    </form>
+
+    {% if search_comments %}
+        {% for comments in search_comments %}
+            <ul>
+                <li>
+                    {{ comments[0] }}
+                </li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+
+</div>
